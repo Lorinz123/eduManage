@@ -1,0 +1,42 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sms_laravel
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: sms_db
+      DB_USERNAME: sms_user
+      DB_PASSWORD: sms_dev_password
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4
+    container_name: sms_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: sms_db
+      MYSQL_USER: sms_user
+      MYSQL_PASSWORD: sms_dev_password
+      MYSQL_ROOT_PASSWORD: sms_root_dev_password
+    volumes:
+      - sms_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psms_root_dev_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  sms_mysql_data:
