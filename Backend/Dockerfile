@@ -7,8 +7,10 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libonig-dev \
     libzip-dev \
+    libpq-dev \
     && docker-php-ext-install \
     pdo_mysql \
+    pdo_pgsql \
     mbstring \
     dom \
     xml \
@@ -33,4 +35,4 @@ RUN composer install \
 
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"]
