@@ -15,7 +15,7 @@ type DashboardOutletContext = {
 export default function DashboardLayout() {
   const [teacher, setTeacher] = useState<AuthUser | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
-  const [sidebarCollapsed,] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -63,16 +63,16 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen min-w-0 bg-[#F5F7FB]">
+    <div className="dashboard-canvas min-h-screen min-w-0">
       {/* Existing sidebar component */}
-      <Sidebar onLogout={handleLogout} />
+      <Sidebar onLogout={handleLogout} onCollapsedChange={setSidebarCollapsed} />
 
       {/* Main application area */}
       <div
         className={[
           "min-h-screen min-w-0 transition-[margin] duration-300 ease-out",
           "motion-reduce:transition-none",
-          sidebarCollapsed ? "md:ml-[84px]" : "md:ml-[272px]",
+          sidebarCollapsed ? "md:ml-[84px]" : "md:ml-[260px]",
         ].join(" ")}
       >
         {/* Existing topbar component */}
@@ -82,7 +82,7 @@ export default function DashboardLayout() {
         />
 
         {/* Current protected page */}
-        <main className="min-w-0 px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <main className="mx-auto min-w-0 max-w-[1680px] px-4 py-5 sm:px-6 sm:py-7 lg:px-8 xl:px-10">
           <Outlet
             context={
               {

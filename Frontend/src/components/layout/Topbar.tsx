@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import {
   Bell,
   ChevronDown,
@@ -19,15 +19,29 @@ type TopbarProps = {
   onLogout?: () => void | Promise<void>;
 };
 
+function getPageIdentity(pathname: string): { title: string; subtitle: string } {
+  if (pathname.startsWith("/students/new")) return { title: "Add Student", subtitle: "Create a student record" };
+  if (/^\/students\/[^/]+\/edit/.test(pathname)) return { title: "Edit Student", subtitle: "Update student information" };
+  if (/^\/students\/[^/]+/.test(pathname)) return { title: "Student Profile", subtitle: "Student information and enrollment" };
+  if (pathname === "/students") return { title: "Students", subtitle: "Manage student records and enrollment" };
+  if (pathname.startsWith("/classes/")) return { title: "Section Details", subtitle: "View class roster and enrollment" };
+  if (pathname === "/classes") return { title: "Classes & Sections", subtitle: "Organize students by program and section" };
+  if (pathname === "/profile") return { title: "My Profile", subtitle: "Manage your teacher account" };
+  if (pathname === "/settings") return { title: "Settings", subtitle: "Personalize your workspace" };
+  return { title: "Dashboard", subtitle: "Your academic workspace at a glance" };
+}
+
 export default function Topbar({ user, onLogout }: TopbarProps) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const [profileOpen, setProfileOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const displayName = user?.name || "Administrator";
+  const displayName = user?.name || "Teacher";
   const displayEmail = user?.email || "Signed-in user";
+  const page = getPageIdentity(pathname);
 
   const initials =
     displayName
@@ -64,8 +78,8 @@ export default function Topbar({ user, onLogout }: TopbarProps) {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white">
-      <div className="flex h-[68px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/95 shadow-[0_1px_2px_rgba(15,34,59,0.03)] backdrop-blur-xl">
+      <div className="flex h-[72px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         {/* Page identity */}
         <div className="flex min-w-0 flex-1 items-center gap-3 pl-11 md:pl-0">
           <div className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-[#183657] sm:flex">
@@ -74,10 +88,10 @@ export default function Topbar({ user, onLogout }: TopbarProps) {
 
           <div className="min-w-0">
             <h1 className="truncate text-sm font-semibold tracking-tight text-[#172B45] sm:text-[15px]">
-              Student Portal
+              {page.title}
             </h1>
             <p className="mt-0.5 hidden text-xs text-slate-500 sm:block">
-              Manage students and academic records
+              {page.subtitle}
             </p>
           </div>
         </div>
@@ -192,7 +206,7 @@ export default function Topbar({ user, onLogout }: TopbarProps) {
                   {displayName}
                 </p>
                 <p className="mt-0.5 text-[11px] text-slate-500">
-                  Administrator
+                  Teacher
                 </p>
               </div>
 

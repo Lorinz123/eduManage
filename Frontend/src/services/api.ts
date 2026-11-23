@@ -1,6 +1,6 @@
 
 const API_BASE_URL = (
-  import.meta.env.VITE_API_URL || "http://localhost:8000/api"
+  import.meta.env.VITE_API_URL || "/api"
 ).replace(/\/+$/, "");
 
 const AUTH_TOKEN_KEY = "sms_auth_token";
@@ -283,6 +283,14 @@ export const authApi = {
     return api.get<AuthUser>("/user");
   },
 
+  changePassword(payload: {
+    current_password: string;
+    password: string;
+    password_confirmation: string;
+  }): Promise<LaravelMessageResponse> {
+    return api.put<LaravelMessageResponse>("/profile/password", payload);
+  },
+
   forgotPassword(payload: {
     email: string;
   }): Promise<LaravelMessageResponse> {
@@ -390,3 +398,4 @@ export const studentsApi = {
     );
   },
 };
+

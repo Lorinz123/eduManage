@@ -213,12 +213,12 @@ export default function Sidebar({
         {/* Brand */}
         <div
           className={[
-            "flex h-[68px] shrink-0 items-center",
+            "flex h-[72px] shrink-0 items-center",
             "border-b border-white/10",
             collapsed ? "justify-center px-3" : "gap-3 px-4",
           ].join(" ")}
         >
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#244A78] text-white">
+          <div className={["flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#244A78] text-white", collapsed ? "md:hidden" : ""].join(" ")}>
             <School size={20} strokeWidth={1.8} />
           </div>
 

@@ -267,7 +267,7 @@ export default function ClassesPage() {
   };
 
   return (
-    <main className="min-w-0 space-y-6 pb-8">
+    <section className="min-w-0 space-y-6 pb-8">
       <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3.5">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-sm shadow-blue-600/20">
@@ -825,7 +825,7 @@ export default function ClassesPage() {
           </div>
         </section>
       )}
-    </main>
+    </section>
   );
 }
 

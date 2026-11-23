@@ -127,7 +127,6 @@ export default function AppRoutes() {
             path="/dashboard"
             element={<DashboardPage />}
           />
-
           {/* Students */}
           <Route
             path="/students"

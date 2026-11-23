@@ -141,6 +141,18 @@ textarea:focus-visible {
   transition: var(--theme-transition);
 }
 
+.dashboard-canvas {
+  background:
+    radial-gradient(ellipse at 90% 0%, rgb(216 231 255 / 35%), transparent 34%),
+    var(--color-page);
+}
+
+html.dark .dashboard-canvas {
+  background:
+    radial-gradient(ellipse at 90% 0%, rgb(49 95 197 / 12%), transparent 36%),
+    var(--color-page);
+}
+
 /* ================= REUSABLE THEME UTILITIES ================= */
 
 .theme-page {
@@ -168,6 +180,106 @@ textarea:focus-visible {
 .theme-border {
   border-color: var(--color-border);
 }
+
+/* Tailwind utility colors used throughout existing screens are made theme-aware
+   here so older pages and shared controls follow the selected appearance too. */
+html.dark #root,
+html.dark body {
+  color: var(--color-text);
+  background: var(--color-page);
+}
+
+html.dark [class~="bg-white"],
+html.dark [class~="bg-white/95"],
+html.dark [class~="bg-gray-50"],
+html.dark [class~="bg-gray-50/70"],
+html.dark [class~="bg-gray-50/80"],
+html.dark [class~="bg-gray-100"],
+html.dark [class~="bg-slate-50"],
+html.dark [class~="bg-slate-50/60"],
+html.dark [class~="bg-slate-50/70"],
+html.dark [class~="bg-slate-50/80"] {
+  background-color: var(--color-surface) !important;
+}
+
+html.dark [class~="bg-slate-100"],
+html.dark [class~="bg-slate-200"],
+html.dark [class~="bg-slate-300"] {
+  background-color: var(--color-surface-secondary) !important;
+}
+
+html.dark [class~="bg-blue-50"],
+html.dark [class~="bg-blue-50/30"],
+html.dark [class~="bg-blue-50/40"],
+html.dark [class~="bg-blue-50/70"],
+html.dark [class~="bg-blue-100"],
+html.dark [class~="bg-indigo-50"] {
+  background-color: #203a5e !important;
+}
+
+html.dark [class~="bg-emerald-50"],
+html.dark [class~="bg-green-50"] { background-color: #18392f !important; }
+html.dark [class~="bg-amber-50"] { background-color: #40351f !important; }
+html.dark [class~="bg-red-50"],
+html.dark [class~="bg-rose-50"] { background-color: #42252b !important; }
+html.dark [class~="bg-violet-50"] { background-color: #322a4d !important; }
+html.dark [class~="bg-[#F5F7FB]"] { background-color: var(--color-page) !important; }
+html.dark [class~="bg-[#EAF0F7]"] { background-color: var(--color-surface-secondary) !important; }
+
+html.dark [class~="text-slate-900"],
+html.dark [class~="text-slate-800"],
+html.dark [class~="text-gray-900"],
+html.dark [class~="text-gray-800"],
+html.dark [class~="text-[#172B45]"],
+html.dark [class~="text-[#183657]"],
+html.dark [class~="text-[#142746]"],
+html.dark [class~="text-[#152D4D]"] { color: #e8eef8 !important; }
+html.dark [class~="text-[#315FC5]"] { color: #a9c5ff !important; }
+html.dark [class~="text-slate-700"],
+html.dark [class~="text-slate-600"],
+html.dark [class~="text-gray-700"],
+html.dark [class~="text-gray-600"] { color: #c2ccdc !important; }
+html.dark [class~="text-slate-500"],
+html.dark [class~="text-gray-500"] { color: #a0aec2 !important; }
+html.dark [class~="text-slate-400"],
+html.dark [class~="text-gray-400"] { color: #8d9cb1 !important; }
+html.dark [class~="text-blue-900"],
+html.dark [class~="text-blue-800"],
+html.dark [class~="text-blue-700"],
+html.dark [class~="text-blue-600"],
+html.dark [class~="text-indigo-700"] { color: #a9c5ff !important; }
+html.dark [class~="text-emerald-900"],
+html.dark [class~="text-emerald-800"],
+html.dark [class~="text-emerald-700"],
+html.dark [class~="text-green-700"] { color: #8ee0bb !important; }
+html.dark [class~="text-amber-900"],
+html.dark [class~="text-amber-700"] { color: #f3cf83 !important; }
+html.dark [class~="text-red-900"],
+html.dark [class~="text-red-800"],
+html.dark [class~="text-red-700"],
+html.dark [class~="text-red-600"],
+html.dark [class~="text-rose-800"],
+html.dark [class~="text-rose-700"],
+html.dark [class~="text-rose-600"] { color: #ffb4b4 !important; }
+
+html.dark [class~="border-slate-100"],
+html.dark [class~="border-slate-200"],
+html.dark [class~="border-slate-200/80"],
+html.dark [class~="border-slate-200/90"],
+html.dark [class~="border-slate-300"],
+html.dark [class~="border-gray-100"],
+html.dark [class~="border-gray-200"],
+html.dark [class~="divide-slate-100"] {
+  border-color: var(--color-border) !important;
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea {
+  color: var(--color-text);
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: #8494aa; }
 
 /* ================= ACCESSIBILITY ================= */
 
