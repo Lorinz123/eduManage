@@ -19,7 +19,8 @@ In Render, create a **Web Service** from the `Lorinz123/eduManage` repository:
 - Runtime: **Docker**
 - Root Directory: `Backend`
 - Health Check Path: `/up`
-- Pre-Deploy Command: `php artisan migrate --force`
+
+The container runs `php artisan migrate --force` at startup before serving requests, so the Neon schema is created automatically. This avoids relying on Render's pre-deploy command, which is only available on paid services.
 
 Set these environment variables in the service's Render dashboard:
 
@@ -36,7 +37,7 @@ Set these environment variables in the service's Render dashboard:
 
 `APP_KEY` can be generated locally from `Backend/` with `php artisan key:generate --show`. Use the output as a Render secret. Do not publish `.env` or the Neon connection string.
 
-The first deploy applies the Laravel migrations to the empty Neon database. Your local MySQL records are not copied to Neon; register a new teacher account on the deployed app after setup.
+The first backend startup applies the Laravel migrations to the empty Neon database. Your local MySQL records are not copied to Neon; register a new teacher account on the deployed app after setup.
 
 ## 3. Deploy the React frontend
 
