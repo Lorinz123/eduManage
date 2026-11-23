@@ -1,10 +1,10 @@
 # Deploy EduManage with Render and Neon
 
-EduManage runs as two Render services and uses Neon for its production database:
+EduManage uses Render for the Laravel backend, Vercel for the React frontend, and Neon for its production database:
 
 - **Backend:** Render Web Service using the Dockerfile in `Backend/`
 - **Database:** Neon PostgreSQL
-- **Frontend:** Render Static Site using `Frontend/`
+- **Frontend:** Vercel project using `Frontend/`
 
 The local Docker Compose setup remains on MySQL. The Docker image includes both MySQL and PostgreSQL PDO drivers so local development keeps working while Render can connect to Neon.
 
@@ -39,26 +39,25 @@ Set these environment variables in the service's Render dashboard:
 
 The first backend startup applies the Laravel migrations to the empty Neon database. Your local MySQL records are not copied to Neon; register a new teacher account on the deployed app after setup.
 
-## 3. Deploy the React frontend
+## 3. Deploy the React frontend to Vercel
 
-In Render, create a **Static Site** from the same repository:
+In Vercel, import the `Lorinz123/eduManage` repository and configure the project:
 
+- Framework Preset: **Vite**
 - Root Directory: `Frontend`
-- Build Command: `npm ci && npm run build`
-- Publish Directory: `dist`
+- Build Command: `npm run build`
+- Output Directory: `dist`
 - Environment Variable `VITE_API_URL`: `https://<backend-service>.onrender.com/api`
 
-Add a rewrite rule so client-side routes work on refresh:
+The `Frontend/vercel.json` rewrite sends app routes to `index.html` so React Router paths work on direct visits and refresh.
 
-- Source: `/*`
-- Destination: `/index.html`
-- Action: `Rewrite`
+Add `VITE_API_URL` for Production, Preview, and Development as appropriate. It is embedded in the frontend at build time; redeploy after changing it.
 
 ## 4. Connect frontend and backend
 
-After Render gives the frontend its URL, set `CORS_ALLOWED_ORIGINS` on the backend to that exact origin (for example, `https://edumanage.onrender.com`, with no trailing slash). Save and redeploy the backend, then redeploy the frontend if you changed `VITE_API_URL`.
+After Vercel gives the frontend its URL, set `CORS_ALLOWED_ORIGINS` on the Render backend to that exact origin (for example, `https://edumanage.vercel.app`, with no trailing slash). Save and redeploy the backend.
 
-The frontend embeds `VITE_API_URL` at build time, so update it in the Static Site's environment settings and trigger a new deploy whenever the backend URL changes.
+The frontend embeds `VITE_API_URL` at build time, so update it in the Vercel project's environment settings and trigger a new deployment whenever the backend URL changes.
 
 ## Local development
 
